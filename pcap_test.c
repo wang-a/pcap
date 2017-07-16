@@ -59,8 +59,10 @@
 			printf("Source Port : %d\n",packet[34]*256 + packet[35]);
 			printf("Destination Port: %d\n",packet[36]*256 + packet[37]);
 			puts("");
-			for(int i=0;i<10;i++)
-				printf("%c",packet[54+i]);
+			int tcpnum = packet[46] >> 4;
+			int tcplen = tcpnum*4;
+			for(int i=34+tcplen;i<44+tcplen;i++)
+				printf("%c",packet[i]);
 			printf("\n");
 										
 		}	
