@@ -7,7 +7,7 @@
 		char *dev;			
 		char errbuf[PCAP_ERRBUF_SIZE];	
 		struct bpf_program fp;		
-		char filter_exp[] = "port 80";	
+		char filter_exp[] = "tcp port 80";	
 		bpf_u_int32 mask;		
 		bpf_u_int32 net;		
 		struct pcap_pkthdr header;	
@@ -58,8 +58,13 @@
 
 			printf("Source Port : %d\n",packet[34]*256 + packet[35]);
 			printf("Destination Port: %d\n",packet[36]*256 + packet[37]);
-			puts("");									
-		}
+			puts("");
+			for(int i=0;i<10;i++)
+				printf("%c",packet[54+i]);
+			printf("\n");
+										
+		}	
+		
 		pcap_close(handle);
 		return(0);
 	 }
