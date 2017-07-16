@@ -1,5 +1,5 @@
- #include <pcap.h>
-	 #include <stdio.h>
+#include <pcap.h>
+#include <stdio.h>
 
 	 int main(int argc, char *argv[])
 	 {
@@ -46,17 +46,20 @@
 			if(status == 0) {
 				continue;
 			}
-			
+			printf("------------------------------------------------------------------------------\n");
 			printf("destination Mac[%02x:%02x:%02x:%02x:%02x:%02x]\n", packet[0], packet[1], packet[2], packet[3], packet[4], packet[5]);
 			printf("source Mac [%02x:%02x:%02x:%02x:%02x:%02x]\n", packet[6], packet[7], packet[8], packet[9], packet[10], packet[11]);
 			puts("");
 			if(packet[12]==0x08 && packet[13]==0x00){
-				printf("IP:[%d.%d.%d.%d]\n",packet[26],packet[27],packet[28],packet[29]);
+				printf("source IP:[%d.%d.%d.%d]\n",packet[26],packet[27],packet[28],packet[29]);
+				printf("destination IP:[%d.%d.%d.%d]\n",packet[30],packet[31],packet[32],packet[33]);
 			}
-			puts("");		
+			puts("");
+
+			printf("Source Port : %d\n",packet[34]*256 + packet[35]);
+			printf("Destination Port: %d\n",packet[36]*256 + packet[37]);
+			puts("");									
 		}
-		
-		
 		pcap_close(handle);
 		return(0);
 	 }
